@@ -37,7 +37,16 @@ jobs:
       script:
         - make cmd
         - make examples
+    - stage: Build&Test
+      arch: arm64
+      name: "Build"
+      script:
+        - make cmd
+        - make examples
     - name: "Code linter"
+      script: make lint || true
+    - name: "Code linter"
+      arch: arm64
       script: make lint || true
     - name: "Unit tests"
       before_script:
@@ -46,8 +55,21 @@ jobs:
       after_success:
         - goveralls -coverprofile=/tmp/coverage.out -service=travis-ci
         - bash <(curl -s https://codecov.io/bash) -f /tmp/coverage.out -F unittests
-
+    - name: "Unit tests"
+      arch: arm64
+      before_script:
+        - go get github.com/mattn/goveralls
+      script: make test-cover
+      after_success:
+        - goveralls -coverprofile=/tmp/coverage.out -service=travis-ci
+        - bash <(curl -s https://codecov.io/bash) -f /tmp/coverage.out -F unittests
     - stage: Integration
+      env: VPP_VERSION=1908
+      script:
+        - make verify-binapi
+        - make integration-tests
+    - stage: Integration
+      arch: arm64
       env: VPP_VERSION=1908
       script:
         - make verify-binapi
@@ -56,7 +78,17 @@ jobs:
       script:
         - make verify-binapi
         - make integration-tests
+    - env: VPP_VERSION=2001
+      arch: arm64
+      script:
+        - make verify-binapi
+        - make integration-tests
     - env: VPP_VERSION=2005
+      script:
+        - make verify-binapi
+        - make integration-tests
+    - env: VPP_VERSION=2005
+      arch: arm64
       script:
         - make verify-binapi
         - make integration-tests
@@ -64,14 +96,31 @@ jobs:
       script:
         - make verify-binapi
         - make integration-tests
-
+    - env: VPP_VERSION=2009
+      arch: arm64
+      script:
+        - make verify-binapi
+        - make integration-tests
     - stage: E2E
       env: VPP_VERSION=1908
       script:
         - make e2e-tests-cover
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
+    - stage: E2E
+      arch: arm64
+      env: VPP_VERSION=1908
+      script:
+        - make e2e-tests-cover
+      after_success:
+        - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
     - env: VPP_VERSION=2001
+      script:
+        - make e2e-tests-cover
+      after_success:
+        - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
+    - env: VPP_VERSION=2001
+      arch: arm64
       script:
         - make e2e-tests-cover
       after_success:
@@ -81,7 +130,19 @@ jobs:
         - make e2e-tests-cover
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
+    - env: VPP_VERSION=2005
+      arch: arm64
+      script:
+        - make e2e-tests-cover
+      after_success:
+        - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
     - env: VPP_VERSION=2009
+      script:
+        - make e2e-tests-cover
+      after_success:
+        - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
+    - env: VPP_VERSION=2009
+      arch: arm64
       script:
         - make e2e-tests-cover
       after_success:
