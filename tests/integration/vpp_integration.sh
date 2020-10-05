@@ -1,12 +1,13 @@
 #!/bin/bash
 set -eu
-UNAME_ARCH ?= $(shell uname -m)
 
 # compile test
 go test -c ./tests/integration/vpp -o ./tests/integration/vpp/vpp-integration.test
-ifeq ($(UNAME_ARCH), aarch64)
-VPP_IMG?=$(subst vpp-base,vpp-base-arm64,$(VPP_IMG))
-endif
+
+#ifeq ($(UNAME_ARCH), aarch64)
+#VPP_IMG?=$(subst vpp-base,vpp-base-arm64,$(VPP_IMG))
+#endif
+
 # start vpp image
 cid=$(docker run -d -it \
 	-v $(pwd)/tests/integration/vpp/vpp-integration.test:/vpp-integration.test:ro \
