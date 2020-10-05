@@ -183,6 +183,7 @@ integration-tests: ## Run integration tests
 	$(info ************  TEST VERSION ************)
 	VPP_IMG?=$(subst vpp-base,vpp-base-arm64,$(VPP_IMG));
 	endif
+	$(info $$var is [${VPP_IMG}])
 	@echo "# running integration tests"
 	VPP_IMG=$(VPP_IMG) ./tests/integration/vpp_integration.sh
 
