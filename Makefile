@@ -179,6 +179,10 @@ perf-all: ## Run all performance tests
 	./tests/perf/run_all.sh
 
 integration-tests: ## Run integration tests
+	ifeq ($(UNAME_ARCH), aarch64)
+	$(info ************  TEST VERSION ************)
+	VPP_IMG?=$(subst vpp-base,vpp-base-arm64,$(VPP_IMG));
+	endif
 	@echo "# running integration tests"
 	VPP_IMG=$(VPP_IMG) ./tests/integration/vpp_integration.sh
 
