@@ -78,26 +78,11 @@ jobs:
       script:
         - make verify-binapi
         - make integration-tests
-    - env: VPP_VERSION=2001
-      arch: arm64
-      script:
-        - make verify-binapi
-        - make integration-tests
     - env: VPP_VERSION=2005
       script:
         - make verify-binapi
         - make integration-tests
-    - env: VPP_VERSION=2005
-      arch: arm64
-      script:
-        - make verify-binapi
-        - make integration-tests
     - env: VPP_VERSION=2009
-      script:
-        - make verify-binapi
-        - make integration-tests
-    - env: VPP_VERSION=2009
-      arch: arm64
       script:
         - make verify-binapi
         - make integration-tests
@@ -119,19 +104,7 @@ jobs:
         - make e2e-tests-cover
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
-    - env: VPP_VERSION=2001
-      arch: arm64
-      script:
-        - make e2e-tests-cover
-      after_success:
-        - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
     - env: VPP_VERSION=2005
-      script:
-        - make e2e-tests-cover
-      after_success:
-        - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
-    - env: VPP_VERSION=2005
-      arch: arm64
       script:
         - make e2e-tests-cover
       after_success:
@@ -141,13 +114,7 @@ jobs:
         - make e2e-tests-cover
       after_success:
         - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
-    - env: VPP_VERSION=2009
-      arch: arm64
-      script:
-        - make e2e-tests-cover
-      after_success:
-        - bash <(curl -s https://codecov.io/bash) -f /tmp/e2e-cov.out -F e2e
-
+  
   allow_failures:
     - env: VPP_VERSION=2009
 
