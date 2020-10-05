@@ -70,7 +70,9 @@ jobs:
         - make integration-tests
     - stage: Integration
       arch: arm64
-      env: VPP_VERSION=1908
+      env: 
+        - VPP_VERSION=1908
+        - SKIP_CHECK=y
       script:
         - make verify-binapi
         - make integration-tests
