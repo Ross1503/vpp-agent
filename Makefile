@@ -215,6 +215,10 @@ generate-binapi: get-binapi-generators ## Generate Go code for VPP binary API
 	VPP_BINAPI=$(VPP_BINAPI) ./scripts/genbinapi.sh
 
 verify-binapi: ## Verify generated VPP binary API
+	ifeq ($(UNAME_ARCH), aarch64)
+	$(info ************  TEST VERSION ************)
+	VPP_IMG=$(subst vpp-base,vpp-base-arm64,$(VPP_IMG));
+	endif
 	@echo "# verifying generated binapi"
 	docker build -f docker/dev/Dockerfile \
 		--build-arg VPP_IMG=${VPP_IMG} \
