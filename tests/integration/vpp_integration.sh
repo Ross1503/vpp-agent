@@ -15,7 +15,7 @@ cid=$(docker run -d -it \
 	-e INITIAL_LOGLVL \
 	-e DEBUG_GOVPP \
 	${DOCKER_ARGS-} \
-	"$VPP_IMG" bash)
+	"vpp-base-arm64:19.08" bash)
 
 on_exit() {
 	docker stop -t 2 "$cid" >/dev/null
