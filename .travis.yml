@@ -63,6 +63,12 @@ jobs:
         - goveralls -coverprofile=/tmp/coverage.out -service=travis-ci
         - bash <(curl -s https://codecov.io/bash) -f /tmp/coverage.out -F unittests
     - stage: Integration
+      env: 
+        - VPP_VERSION=1908
+      script:
+        - make verify-binapi
+        - make integration-tests
+    - stage: Integration
       arch: arm64
       env: 
         - VPP_VERSION=1908
