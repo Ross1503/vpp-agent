@@ -52,7 +52,7 @@ endif
 VPP_IMG?=$(value VPP_$(VPP_VERSION)_IMAGE)
 VPP_BINAPI?=$(value VPP_$(VPP_VERSION)_BINAPI)
 
-SKIP_CHECK?=y
+SKIP_CHECK?=
 
 ifeq ($(NOSTRIP),)
 LDFLAGS += -w -s
