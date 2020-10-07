@@ -46,7 +46,8 @@ endif
 VPP_IMG?=$(value VPP_$(VPP_VERSION)_IMAGE)
 
 ifeq ($(UNAME_ARCH), aarch64)
-VPP_IMG=ligato/vpp-base-arm64:19.08
+VPP_IMG_ARM64?=$(subst vpp-base,vpp-base-arm64,${VPP_IMG})
+VPP_IMG=VPP_IMG_ARM64
 endif
 
 VPP_BINAPI?=$(value VPP_$(VPP_VERSION)_BINAPI)
