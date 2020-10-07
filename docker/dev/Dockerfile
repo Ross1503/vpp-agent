@@ -26,6 +26,7 @@ COPY --from=vppimg /usr/share/vpp /usr/share/vpp
 COPY --from=vppimg /vpp/version /vpp-version
 
 RUN set -x; \
+	SKIP_CHECK=y; \
 	gofmt -w plugins/vpp/binapi; \
 	cp -r plugins/vpp/binapi /tmp/orig_binapi && \
 	make generate-binapi && \
