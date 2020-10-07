@@ -46,7 +46,8 @@ endif
 VPP_IMG ?= $(value VPP_$(VPP_VERSION)_IMAGE)
 ifeq ($(UNAME_ARCH), aarch64)
 $(info ************  TEST VERSION ************)
-VPP_IMG = vpp-base-arm64
+$(info $$ before var iss [${VPP_IMG}])
+VPP_IMG ?= vpp-base-arm64
 $(info $$var iss [${VPP_IMG}])
 endif
 VPP_BINAPI?=$(value VPP_$(VPP_VERSION)_BINAPI)
