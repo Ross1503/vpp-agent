@@ -24,11 +24,11 @@ cache:
 install: true
 
 stages:
-  - Test
-  - Build&Test
   - Integration
   - name: E2E
     if: ( type = push AND branch IN (master, dev) ) OR ( type IN (cron, api) ) OR ( commit_message =~ /^(test-e2e)/ )
+  - Test
+  - Build&Test
 jobs:
   include:
     - stage: Build&Test
