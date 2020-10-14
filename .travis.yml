@@ -71,7 +71,7 @@ jobs:
     - stage: Integration
       sudo: required
       group: edge
-      virt: lxd
+      virt: vm
       arch: arm64-graviton2
       env: 
         - VPP_VERSION=1908
