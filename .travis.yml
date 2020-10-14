@@ -69,7 +69,10 @@ jobs:
         - make verify-binapi
         - make integration-tests
     - stage: Integration
-      arch: arm64
+      sudo: required
+      group: edge
+      virt: lxd
+      arch: arm64-graviton2
       env: 
         - VPP_VERSION=1908
       script:
